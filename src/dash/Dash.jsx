@@ -22,10 +22,8 @@ function Dash() {
     });
   }, []);
   function filterSonet(son) {
-    console.log(filter);
-      console.log(son.mesaj !== undefined);
-    if (filter == "from") return (!son.fromName && son.mesaj);
-    else if (filter == "mesaj") return (!son.mesaj);
+    if (filter === "from") return (!son.fromName && son.mesaj);
+    else if (filter === "mesaj") return (!son.mesaj);
     else return true;
   }
   return (
