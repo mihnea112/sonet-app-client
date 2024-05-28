@@ -36,7 +36,7 @@ function Content() {
                 <div className="mb-8">
                   <a
                     className="btn text-emerald-300 bg-emerald-800 hover:bg-emerald-600 w-full mb-4 sm:w-auto sm:mb-0 p-3 rounded"
-                    href="#0"
+                    href="/login"
                   >
                     Login/Register
                   </a>
