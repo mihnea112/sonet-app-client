@@ -11,18 +11,31 @@ function Dash() {
 	const [sonet, setSonet] = useState([]);
 	const [search, setSearch] = useState("");
 	const [filter, setFilter] = useState("all");
+	const [number, setNumber] = useState(1);
 
-	useEffect(() => {
+	useEffect(updateSonets, []);
+
+	function updateSonets() {
 		const token = localStorage.getItem("token");
 		axios.get(getProxyy() + "/sonete?token=" + token).then((res) => {
 			setSonet(res.data.sonete);
 		});
-	}, []);
+	}
 
 	function filterSonet(son) {
 		if (filter === "from") return !son.fromName && son.mesaj;
 		else if (filter === "mesaj") return !son.mesaj;
 		else return true;
+	}
+
+	function addSonets() {
+		const token = localStorage.getItem("token");
+		axios
+			.post(getProxyy() + "/id-sonete", {number: number, token: token})
+			.then((res) => {
+				setSonet(res.data.sonets);
+			})
+			.catch();
 	}
 
 	return (
@@ -34,7 +47,7 @@ function Dash() {
 					data-aos="zoom-y-out">
 					Sonetele tale
 				</h1>
-				{sonet.lenght !== 0 && (
+				{sonet.length !== 0 && (
 					<div>
 						<SearchComponent search={search} setSearch={setSearch}></SearchComponent>
 						<div className="flex gap-4 justify-center">
@@ -64,8 +77,14 @@ function Dash() {
 									className="h-full p-2 rounded-s-sm bg-zinc-600 text-emerald-300 border border-emerald-300 select-none"
 									min={1}
 									max={20}
+									value={number}
+									onChange={(e) => {
+										setNumber(e.target.value);
+									}}
 								/>
-								<button className="h-full px-3 rounded-e-sm bg-emerald-300 focus:outline-none">Add</button>
+								<button className="h-full px-3 rounded-e-sm bg-emerald-300 focus:outline-none" onClick={addSonets}>
+									Add
+								</button>
 							</div>
 						</div>
 
@@ -75,7 +94,7 @@ function Dash() {
 									(search === "" || son.fromName?.includes(search) || son.mesaj?.includes(search)) && filterSonet(son)
 							)
 							.map((son) => (
-								<SonetAccordion key={son._id} son={son} />
+								<SonetAccordion key={son._id} son={son} updateSonets={updateSonets} />
 							))}
 					</div>
 				)}

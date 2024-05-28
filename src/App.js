@@ -10,10 +10,13 @@ import About from "./home/About";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import {light} from "@mui/material/styles/createPalette";
+import Edit from "./dash/edit/Edit";
+import SonetLg from "./dash/SonetLg";
+
 export function getProxyy() {
 	return process.env.REACT_APP_DEVPROXY;
 }
+
 function App() {
 	const theme = createTheme({
 		palette: {
@@ -31,7 +34,9 @@ function App() {
 			},
 		},
 	});
+
 	const [logged, setLogged] = useState(false);
+
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 		if (token) {
@@ -41,6 +46,7 @@ function App() {
 			});
 		} else setLogged(false);
 	}, []);
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
@@ -61,6 +67,18 @@ function App() {
 		{
 			path: "/dash",
 			element: <Dash />,
+		},
+		{
+			path: "/for-me",
+			element: <Dash />,
+		},
+		{
+			path: "/edit/:id",
+			element: <Edit />,
+		},
+		{
+			path: "/sonet/:id",
+			element: <SonetLg />,
 		},
 	]);
 	return (

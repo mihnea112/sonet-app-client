@@ -8,12 +8,13 @@ import {Button} from "@mui/material";
 import axios from "axios";
 import {getProxyy} from "../App";
 
-function SonetAccordion({son}) {
+function SonetAccordion({son, updateSonets}) {
 	function deleteSonet() {
+		const token = localStorage.getItem("token");
 		axios
-			.delete(getProxyy() + "/sonet/" + son._id)
+			.delete(getProxyy() + "/sonet/" + son._id + `?token=${token}`)
 			.then(() => {
-				console.log("OK");
+				updateSonets();
 			})
 			.catch((err) => {});
 	}
@@ -23,7 +24,7 @@ function SonetAccordion({son}) {
 			<Accordion>
 				<AccordionSummary expandIcon={<ArrowDownwardIcon />} aria-controls="panel1-content" id="panel1-header">
 					<div className="flex gap-4 text-emerald-300">
-						{son.fromName ? <h3 className="font-bold">{son.fromName}</h3> : <h3 className="font-bold">[Empty]</h3>}
+						{son.forName ? <h3 className="font-bold">{son.forName}</h3> : <h3 className="font-bold">[Empty]</h3>}
 						{son.mesaj ? <p className="italic">"{son.mesaj.substring(0, 25)}..."</p> : <p>[Mesaj]</p>}
 					</div>
 				</AccordionSummary>
@@ -34,14 +35,11 @@ function SonetAccordion({son}) {
 								variant="outlined"
 								color="primary"
 								onClick={() => {
-									window.location.href = "http://" + window.location.host + "/sonet/edit/" + son._id;
+									window.location.href = "http://" + window.location.host + "/edit/" + son._id;
 								}}>
 								Edit
 							</Button>
-							<Button
-								variant="outlined"
-								color="delete"
-								onClick={deleteSonet}>
+							<Button variant="outlined" color="delete" onClick={deleteSonet}>
 								Delete
 							</Button>
 						</div>
