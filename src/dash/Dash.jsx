@@ -4,8 +4,6 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import Balls from "../home/Balls";
 import { Button, ButtonGroup } from "@mui/material";
 import { getProxyy } from "../App";
@@ -17,15 +15,14 @@ function Dash() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios.get(getProxyy() + "/sonete?token=" + token).then((res) => {
-      console.log(res.data);
       setSonet(res.data.sonete);
     });
   }, []);
   function filterSonet(son) {
     console.log(filter);
       console.log(son.mesaj !== undefined);
-    if (filter == "from") return (!son.fromName && son.mesaj);
-    else if (filter == "mesaj") return (!son.mesaj);
+    if (filter === "from") return (!son.fromName && son.mesaj);
+    else if (filter === "mesaj") return (!son.mesaj);
     else return true;
   }
   return (
@@ -38,7 +35,7 @@ function Dash() {
         >
           Sonetele tale
         </h1>
-        {sonet.lenght != 0 && (
+        {sonet.lenght !== 0 && (
           <div>
             <div className="my-3">
               <ButtonGroup variant="outlined" aria-label="Basic button group">
