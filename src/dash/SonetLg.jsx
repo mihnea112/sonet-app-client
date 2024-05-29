@@ -1,24 +1,27 @@
 import axios from "axios";
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import React from "react";
 import {getProxyy} from "../App";
 import {Button} from "@mui/material";
 
-function SonetLg() {
-	const {id} = useParams();
-
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		axios
-			.get(getProxyy() + "/sonet/" + id)
-			.then((res) => {
-				setData(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
+function SonetLg({data, setData}) {
+	function addToMySonets() {
+		const token = localStorage.getItem("token");
+		if (token) {
+			axios
+				.post(getProxyy() + "/sonet-user", {
+					sonetId: data._id,
+					token,
+				})
+				.then(() => {
+					window.location.href = "/for-me";
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}else {
+      //
+    }
+	}
 
 	return (
 		<div className="max-w-lg mx-auto">
@@ -39,7 +42,7 @@ function SonetLg() {
 						Pentru: <span className="font-bold">{data.forName}</span>
 					</h2>
 					<div className="my-10">
-						<Button className="w-full " variant="outlined" color="primary">
+						<Button className="w-full" variant="outlined" color="primary" onClick={addToMySonets}>
 							Adauga la sonete pentru mine...
 						</Button>
 					</div>

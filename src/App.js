@@ -12,6 +12,8 @@ import {useEffect, useState} from "react";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Edit from "./dash/edit/Edit";
 import SonetLg from "./dash/SonetLg";
+import SonetFromId from "./dash/SonetFromId";
+import ForMe from "./dash/ForMe";
 
 export function getProxyy() {
 	return process.env.REACT_APP_DEVPROXY;
@@ -70,15 +72,11 @@ function App() {
 		},
 		{
 			path: "/for-me",
-			element: <Dash />,
-		},
-		{
-			path: "/edit/:id",
-			element: <Edit />,
+			element: <ForMe />,
 		},
 		{
 			path: "/sonet/:id",
-			element: <SonetLg />,
+			element: <SonetFromId />,
 		},
 	]);
 	return (

@@ -1,29 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {useParams} from "react-router-dom";
 import {getProxyy} from "../../App";
 import axios from "axios";
 import {Button} from "@mui/material";
 
-function Edit() {
+function Edit({data, setData}) {
 	const {id} = useParams();
-
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		axios
-			.get(getProxyy() + "/sonet/" + id)
-			.then((res) => {
-				setData(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
 
 	function save() {
 		const token = localStorage.getItem("token");
 		axios
-			.patch(getProxyy() + "/sonet/" + id, {...data, token: token})
+			.patch(getProxyy() + "/sonet/" + data._id, {...data, token: token})
 			.then((res) => {
 				alert("OK");
 			})

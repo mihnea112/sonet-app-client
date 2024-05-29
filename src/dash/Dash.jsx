@@ -94,7 +94,7 @@ function Dash() {
 									(search === "" || son.fromName?.includes(search) || son.mesaj?.includes(search)) && filterSonet(son)
 							)
 							.map((son) => (
-								<SonetAccordion key={son._id} son={son} updateSonets={updateSonets} />
+								<SonetAccordion key={son._id} son={son} updateSonets={updateSonets} manage />
 							))}
 					</div>
 				)}
