@@ -13,7 +13,7 @@ import {CgLogIn} from "react-icons/cg";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 import {getProxyy} from "../App";
 import axios from "axios";
-
+import  {FaUserCircle} from "react-icons/fa"
 const navigation = [
 	{name: "Home", href: "/", current: false},
 	{name: "Sonetele mele", href: "/dash", current: window.location.href.includes("/dash")},
@@ -83,7 +83,7 @@ export default function Navbar() {
 							<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 								<Menu as="div" className="relative ml-3">
 									<div>
-										<MenuButton className="relative flex rounded-full text-sm focus:outline-none font-bold p-1 focus:ring-2 items-center focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+										<MenuButton className="">
 											{logged != true ? (
 												<>
 													<a
@@ -97,11 +97,7 @@ export default function Navbar() {
 												<>
 													<span className="absolute -inset-1.5" />
 													<span className="sr-only">Open user menu</span>
-													<img
-														className="h-8 w-8 rounded-full"
-														src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-														alt=""
-													/>
+													<FaUserCircle color={"white"} size={25}/>
 												</>
 											)}
 										</MenuButton>
@@ -143,7 +139,7 @@ export default function Navbar() {
 												</>
 											) : (
 												<>
-													<MenuItem>
+													{/* <MenuItem>
 														{({focus}) => (
 															<a
 																href="/"
@@ -166,7 +162,7 @@ export default function Navbar() {
 																Settings
 															</a>
 														)}
-													</MenuItem>
+													</MenuItem> */}
 													<MenuItem>
 														{({focus}) => (
 															<span

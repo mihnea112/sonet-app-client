@@ -52,22 +52,11 @@ function SonetAccordion({son, updateSonets, manage}) {
 						<div className="text-center  text-emerald-300 flex justify-center gap-3 my-3">
 							<>For: {son.forName ? <h3 className=" text-emerald-200 font-bold">{son.forName}</h3> : <p>[Empty]</p>}</>
 						</div>
-						<hr  className="my-2"/>
+						<hr className="my-2" />
 
 						<h3 className="font-bold text-emerald-300">Mesaj:</h3>
 						<p className="text-emerald-100 italic">{son.mesaj}</p>
-						<hr className="my-2"/>
-
-						<div className="text-center  text-emerald-300 flex justify-center gap-3 my-3">
-							<>
-								From:{" "}
-								{son.fromUserId.name ? (
-									<h3 className=" text-emerald-200 font-bold">{son.fromUserId.name}</h3>
-								) : (
-									<p>[Empty]</p>
-								)}
-							</>
-						</div>
+						<hr className="my-2" />
 
 						{manage && (
 							<div className="w-2/3 mx-auto p-3 bg-white my-5">
