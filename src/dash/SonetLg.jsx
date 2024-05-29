@@ -1,9 +1,11 @@
 import axios from "axios";
-import React from "react";
+import React, {useContext} from "react";
 import {getProxyy} from "../App";
 import {Button} from "@mui/material";
+import {AlertContext} from "../AlertComponent";
 
 function SonetLg({data, setData}) {
+	const {handleAxiosError, handleError} = useContext(AlertContext);
 	function addToMySonets() {
 		const token = localStorage.getItem("token");
 		if (token) {
@@ -14,13 +16,12 @@ function SonetLg({data, setData}) {
 				})
 				.then(() => {
 					window.location.href = "/for-me";
+					handleError("OK", "success");
 				})
-				.catch((err) => {
-					console.log(err);
-				});
-		}else {
-      //
-    }
+				.catch(handleAxiosError);
+		} else {
+			//
+		}
 	}
 
 	return (

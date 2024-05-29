@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 
 import Balls from "../home/Balls";
 import {Button, ButtonGroup} from "@mui/material";
@@ -6,6 +6,7 @@ import {getProxyy} from "../App";
 import axios from "axios";
 import SearchComponent from "../components/SearchComponent";
 import SonetAccordion from "./SonetAccordion";
+import {AlertContext} from "../AlertComponent";
 
 function Dash() {
 	const [sonet, setSonet] = useState([]);
@@ -13,13 +14,18 @@ function Dash() {
 	const [filter, setFilter] = useState("all");
 	const [number, setNumber] = useState(1);
 
+	const {handleAxiosError, handleError} = useContext(AlertContext);
+
 	useEffect(updateSonets, []);
 
 	function updateSonets() {
 		const token = localStorage.getItem("token");
-		axios.get(getProxyy() + "/sonete?token=" + token).then((res) => {
-			setSonet(res.data.sonete);
-		});
+		axios
+			.get(getProxyy() + "/sonete?token=" + token)
+			.then((res) => {
+				setSonet(res.data.sonete);
+			})
+			.catch(handleAxiosError);
 	}
 
 	function filterSonet(son) {
@@ -34,8 +40,9 @@ function Dash() {
 			.post(getProxyy() + "/id-sonete", {number: number, token: token})
 			.then((res) => {
 				setSonet(res.data.sonets);
+				handleError("Added", "success");
 			})
-			.catch();
+			.catch(handleAxiosError);
 	}
 
 	return (

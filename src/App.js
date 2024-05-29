@@ -10,10 +10,9 @@ import About from "./home/About";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import Edit from "./dash/edit/Edit";
-import SonetLg from "./dash/SonetLg";
 import SonetFromId from "./dash/SonetFromId";
 import ForMe from "./dash/ForMe";
+import AlertComponent from "./AlertComponent";
 
 export function getProxyy() {
 	return process.env.REACT_APP_DEVPROXY;
@@ -42,10 +41,14 @@ function App() {
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 		if (token) {
-			axios.get(getProxyy() + "/user?token=" + token).then((res) => {
-				setLogged(true);
-				console.log(res.data);
-			});
+			axios
+				.get(getProxyy() + "/user?token=" + token)
+				.then((res) => {
+					setLogged(true);
+				})
+				.catch((err) => {
+					setLogged(false);
+				});
 		} else setLogged(false);
 	}, []);
 
@@ -82,11 +85,13 @@ function App() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<Navbar></Navbar>
-				<div className="min-h-screen bg-zinc-700">
-					<RouterProvider router={router}></RouterProvider>
-				</div>
-				<Footer></Footer>
+				<AlertComponent>
+					<Navbar></Navbar>
+					<div className="min-h-screen bg-zinc-700">
+						<RouterProvider router={router}></RouterProvider>
+					</div>
+					<Footer></Footer>
+				</AlertComponent>
 			</ThemeProvider>
 		</>
 	);

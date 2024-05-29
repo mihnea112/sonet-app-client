@@ -5,7 +5,7 @@ import { getProxyy } from "../App";
 import { AlertContext } from "../AlertComponent";
 
 function Register() {
-  //const { handleAxiosError } = useContext(AlertContext);
+  const { handleAxiosError } = useContext(AlertContext);
   const [userData, setUserData] = useState({
     email: "",
     name: "",
@@ -19,7 +19,7 @@ function Register() {
     }));
   }
   async function submit() {
-    if (userData.password == userData.cpassword) {
+    if (userData.password === userData.cpassword) {
       axios
         .post(getProxyy() + "/register", userData)
         .then((res) => {
@@ -27,7 +27,7 @@ function Register() {
           console.log(res.data.token);
           window.location.replace("/dash");
         })
-        //.catch(handleAxiosError);
+        .catch(handleAxiosError);
     }
   }
   return (

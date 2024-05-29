@@ -5,7 +5,7 @@ import { getProxyy } from "../App";
 import { AlertContext } from "../AlertComponent";
 
 function Login() {
-  //const { handleAxiosError } = useContext(AlertContext);
+  const { handleAxiosError } = useContext(AlertContext);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -24,7 +24,7 @@ function Login() {
         console.log(res.data.token);
         window.location.replace("/dash");
       })
-      //.catch(handleAxiosError);
+      .catch(handleAxiosError);
   }
   return (
     <section className="login">

@@ -1,22 +1,22 @@
-import React from "react";
+import React, {useContext} from "react";
 import {useParams} from "react-router-dom";
 import {getProxyy} from "../../App";
 import axios from "axios";
 import {Button} from "@mui/material";
+import {AlertContext} from "../../AlertComponent";
 
 function Edit({data, setData}) {
 	const {id} = useParams();
+	const {handleAxiosError} = useContext(AlertContext);
 
 	function save() {
 		const token = localStorage.getItem("token");
 		axios
 			.patch(getProxyy() + "/sonet/" + data._id, {...data, token: token})
 			.then((res) => {
-				alert("OK");
+				window.location.href = "/dash";
 			})
-			.catch((err) => {
-				alert("Err");
-			});
+			.catch(handleAxiosError);
 	}
 
 	function handleChange(e) {

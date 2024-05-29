@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -7,16 +7,20 @@ import QRCode from "react-qr-code";
 import {Button} from "@mui/material";
 import axios from "axios";
 import {getProxyy} from "../App";
+import {AlertContext} from "../AlertComponent";
 
 function SonetAccordion({son, updateSonets, manage}) {
+	const {handleAxiosError, handleError} = useContext(AlertContext);
+
 	function deleteSonet() {
 		const token = localStorage.getItem("token");
 		axios
 			.delete(getProxyy() + "/sonet/" + son._id + `?token=${token}`)
 			.then(() => {
 				updateSonets();
+				handleError("Updated", "success");
 			})
-			.catch((err) => {});
+			.catch(handleAxiosError);
 	}
 
 	return (

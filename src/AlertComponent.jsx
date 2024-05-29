@@ -17,19 +17,6 @@ function AlertComponent({ children }) {
   const [alert, setAlert] = useState(null);
   const [dialog, setDialog] = useState(null);
 
-  //   useEffect(() => {
-  //     if (getCookie("c-permisson") != "ok") {
-  //       setAlert({
-  //         prompt: "We are using cookies!",
-  //         severity: "info",
-  //         btnTxt: "Ok",
-  //         btnClick: acceptCookies,
-  //         href: "/cookies",
-  //         hrefTag: "Read more",
-  //       });
-  //     }
-  //   }, []);
-  //   //
   useEffect(() => {
     if (alert?.autoClose) {
       setTimeout(() => {
@@ -39,13 +26,6 @@ function AlertComponent({ children }) {
   }, [alert]);
 
   function handleAxiosError(err) {
-    // if (err.response?.status == 403) {
-    //   setCookie("prevUrl", window.location.href);
-    //   window.location.replace("/login");
-    // }
-
-    // finishedLoadingItem();
-
     setAlert({
       severity: "error",
       prompt: err.response?.data,
@@ -75,11 +55,6 @@ function AlertComponent({ children }) {
 
     setDialog(diaToSet);
   }
-
-//   function acceptCookies() {
-//     setCookie("c-permisson", "ok");
-//     setAlert(null);
-//   }
 
   function handleDialogClose() {
     setDialog(null);

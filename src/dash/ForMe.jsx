@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 
 import Balls from "../home/Balls";
 import {Button, ButtonGroup} from "@mui/material";
@@ -6,16 +6,18 @@ import {getProxyy} from "../App";
 import axios from "axios";
 import SearchComponent from "../components/SearchComponent";
 import SonetAccordion from "./SonetAccordion";
+import { AlertContext } from "../AlertComponent";
 
 function ForMe() {
 	const [sonet, setSonet] = useState([]);
 	const [search, setSearch] = useState("");
+	const {handleAxiosError} = useContext(AlertContext)
 
 	function updateSonets() {
 		const token = localStorage.getItem("token");
 		axios.get(getProxyy() + "/for-me?token=" + token).then((res) => {
 			setSonet(res.data.sonete);
-		});
+		}).catch(handleAxiosError);
 	}
 
 	useEffect(updateSonets, []);

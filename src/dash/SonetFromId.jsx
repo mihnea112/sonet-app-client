@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {getProxyy} from "../App";
 import SonetLg from "./SonetLg";
 import Edit from "./edit/Edit";
+import { AlertContext } from "../AlertComponent";
 
 function SonetFromId() {
 	const {id} = useParams();
+	const {handleAxiosError, handleError} = useContext(AlertContext)
 
 	const [data, setData] = useState(null);
 
@@ -16,9 +18,7 @@ function SonetFromId() {
 			.then((res) => {
 				setData(res.data);
 			})
-			.catch((err) => {
-				console.log(err);
-			});
+			.catch(handleAxiosError);
 	}, []);
 
 	return (
