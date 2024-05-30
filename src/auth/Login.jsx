@@ -21,7 +21,6 @@ function Login() {
       .post(getProxyy() + "/login", userData)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        console.log(res.data.token);
         window.location.replace("/dash");
       })
       .catch(handleAxiosError);
