@@ -21,7 +21,22 @@ function Login() {
       .post(getProxyy() + "/login", userData)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        window.location.replace("/dash");
+        const token = localStorage.getItem("token");
+        const sonet = localStorage.getItem("sonet");
+        if (sonet.length>0) {
+          axios
+            .post(getProxyy() + "/sonet-user", {
+              sonetId: sonet,
+              token,
+            })
+            .then(() => {
+              localStorage.removeItem("sonet");
+              window.location.href = "/for-me";
+            });
+        }
+        else{
+          window.location.replace("/dash");
+        }
       })
       .catch(handleAxiosError);
   }

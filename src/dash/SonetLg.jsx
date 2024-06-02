@@ -20,7 +20,8 @@ function SonetLg({data, setData}) {
 				})
 				.catch(handleAxiosError);
 		} else {
-			//
+			localStorage.setItem("sonet", data._id);
+			window.location.href = "/login";
 		}
 	}
 
