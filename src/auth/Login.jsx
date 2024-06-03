@@ -15,15 +15,17 @@ function Login() {
       ...prevData,
       [e.target.name]: e.target.value,
     }));
+    const sonet = localStorage.getItem("sonet");
+    console.log(sonet);
   }
   async function submit() {
     axios
       .post(getProxyy() + "/login", userData)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        const token = localStorage.getItem("token");
+        const token = res.data.token;
         const sonet = localStorage.getItem("sonet");
-        if (sonet.length>0) {
+        if (sonet!=null) {
           axios
             .post(getProxyy() + "/sonet-user", {
               sonetId: sonet,

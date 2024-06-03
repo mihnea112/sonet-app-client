@@ -26,7 +26,7 @@ function Register() {
           localStorage.setItem("token", res.data.token);
           const token = localStorage.getItem("token");
           const sonet = localStorage.getItem("sonet");
-          if (sonet.length > 0) {
+          if (sonet!=null) {
             axios
               .post(getProxyy() + "/sonet-user", {
                 sonetId: sonet,
@@ -36,7 +36,8 @@ function Register() {
                 localStorage.removeItem("sonet");
                 window.location.href = "/for-me";
               });
-          } else {
+          }
+          else{
             window.location.replace("/dash");
           }
         })
